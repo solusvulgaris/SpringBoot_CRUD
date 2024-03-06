@@ -19,18 +19,25 @@ public class GlobalExceptionHandler {
         return e.getMessage();
     }
 
-    @ExceptionHandler(ResourceNoAccessException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public @ResponseBody String handleResourceNoAccessException(ResourceNoAccessException e) {
+    @ExceptionHandler(ResourceAlreadyExistException.class)
+    public ResponseEntity<String> handleResourceAlreadyExistException(ResourceAlreadyExistException e) {
         log.error(e.getMessage(), e);
-        return e.getMessage();
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ResourceNotDeletedException.class)
+    public ResponseEntity<String> handleResourceNotDeletedException(ResourceNotDeletedException e) {
+        log.error(e.getMessage(), e);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException e) {
         log.error(e.getMessage(), e);
-        return new ResponseEntity<>(
-                e.getMessage(),
-                HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+
+
+
 }
