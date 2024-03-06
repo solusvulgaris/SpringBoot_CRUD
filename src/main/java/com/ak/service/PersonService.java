@@ -7,17 +7,13 @@ import java.util.Optional;
 
 public interface PersonService {
 
-    void add(int id, String name);
+    Person create(int id, String name, String surname, Integer age);
 
-    boolean delete(int id);
+    void delete(int id);
 
     Optional<Person> get(int id);
 
     List<Person> getAll();
 
-    Optional<Person> update(int id, String name);
-
-    static boolean hasAccess(int id) {
-        return id == 1;
-    }
+    Optional<Person> update(int id, String name, String surname, Integer age);
 }

@@ -65,14 +65,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8082/api/v1/persons/",
+					"raw": "http://localhost:8082/personapp/v1/persons/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"api",
+						"personapp",
 						"v1",
 						"persons",
 						""
@@ -129,17 +129,39 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8082/api/v1/persons/1",
+					"raw": "http://localhost:8082/personapp/v1/persons/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"api",
+						"personapp",
 						"v1",
 						"persons",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPerson_null",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/personapp/v1/persons/null",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"personapp",
+						"v1",
+						"persons",
+						"null"
 					]
 				}
 			},
@@ -151,14 +173,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8082/api/v1/persons/5",
+					"raw": "http://localhost:8082/personapp/v1/persons/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"api",
+						"personapp",
 						"v1",
 						"persons",
 						"5"
@@ -173,14 +195,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8082/api/v1/persons/1",
+					"raw": "http://localhost:8082/personapp/v1/persons/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"api",
+						"personapp",
 						"v1",
 						"persons",
 						"1"
@@ -195,73 +217,17 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8082/api/v1/persons/666",
+					"raw": "http://localhost:8082/personapp/v1/persons/666",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"api",
+						"personapp",
 						"v1",
 						"persons",
 						"666"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PatchName_param",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8082/api/v1/persons/3?name=Third-param",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8082",
-					"path": [
-						"api",
-						"v1",
-						"persons",
-						"3"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "Third-param"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PatchName_param_notFound",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8082/api/v1/persons/66?name=Third-param",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8082",
-					"path": [
-						"api",
-						"v1",
-						"persons",
-						"66"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "Third-param"
-						}
 					]
 				}
 			},
@@ -274,7 +240,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 8,\r\n    \"name\": \"Eight\"\r\n}",
+					"raw": "{\r\n    \"id\": 8,\r\n    \"name\": \"Eight\",\r\n    \"sername\": \"Surname-8\",\r\n    \"age\": 8\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -282,17 +248,17 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/api/v1/persons/1",
+					"raw": "http://localhost:8082/personapp/v1/persons/8",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"api",
+						"personapp",
 						"v1",
 						"persons",
-						"1"
+						"8"
 					]
 				}
 			},
@@ -313,14 +279,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/api/v1/persons/1",
+					"raw": "http://localhost:8082/personapp/v1/persons/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"api",
+						"personapp",
 						"v1",
 						"persons",
 						"1"
@@ -330,31 +296,36 @@
 			"response": []
 		},
 		{
-			"name": "PutPerson_noAccess",
+			"name": "PostNewPerson_alreadyExist",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Replaced v2\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "http://localhost:8082/api/v1/persons/3",
+					"raw": "http://localhost:8082/personapp/v1/persons/2?name=Second&surname=Surname-2&age=28",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"api",
+						"personapp",
 						"v1",
 						"persons",
-						"3"
+						"2"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Second"
+						},
+						{
+							"key": "surname",
+							"value": "Surname-2"
+						},
+						{
+							"key": "age",
+							"value": "28"
+						}
 					]
 				}
 			},
@@ -375,16 +346,121 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/api/v1/persons",
+					"raw": "http://localhost:8082/personapp/v1/persons/6?name=Six&surname=Surname-6&age=60",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8082",
 					"path": [
-						"api",
+						"personapp",
 						"v1",
-						"persons"
+						"persons",
+						"6"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Six"
+						},
+						{
+							"key": "surname",
+							"value": "Surname-6"
+						},
+						{
+							"key": "age",
+							"value": "60"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostNewPerson_ageIsNULL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"New v1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/personapp/v1/persons/7?name=Seven&surname=Surname-7&age=null",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"personapp",
+						"v1",
+						"persons",
+						"7"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Seven"
+						},
+						{
+							"key": "surname",
+							"value": "Surname-7"
+						},
+						{
+							"key": "age",
+							"value": "null"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostNewPerson_NoAge",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"New v1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/personapp/v1/persons/7?name=Seven&surname=Surname-7&age=null",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"personapp",
+						"v1",
+						"persons",
+						"7"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Seven"
+						},
+						{
+							"key": "surname",
+							"value": "Surname-7"
+						},
+						{
+							"key": "age",
+							"value": "null"
+						}
 					]
 				}
 			},

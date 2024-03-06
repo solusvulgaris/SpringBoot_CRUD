@@ -1,17 +1,22 @@
 package com.ak.data;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-public abstract class Person {
-    @Getter
-    private final int id;
-    @Getter
-    @Setter
+@Data
+public class Person {
+    private int id;
     private String name;
+    private String surname;
+    private Integer age;
 
-    protected Person(int id, String name) {
+    public Person(int id, String name, String surname, Integer age) {
         this.id = id;
         this.name = name;
+        this.surname = surname;
+        this.age = age;
+    }
+
+    public Person() {
+
     }
 }
