@@ -19,9 +19,9 @@ public class PersonServiceList implements PersonService {
     @Autowired
     public PersonServiceList() {
         persons = new ArrayList<>(Arrays.asList(
-                new Person(1, "First", "Surname-1", 30),
-                new Person(2, "Second", "Surname-2", 28),
-                new Person(3, "Third", "Surname-3", 15)
+                Person.builder(1).name("First").surname("Surname-1").age(30).build(),
+                Person.builder(2).name("Second").surname("Surname-2").age(28).build(),
+                Person.builder(3).name("Third").surname("Surname-3").age(15).build()
         ));
     }
 
@@ -30,7 +30,7 @@ public class PersonServiceList implements PersonService {
         if(persons.stream().map(Person::getId).anyMatch(pId -> pId == id)) {
             throw new ResourceAlreadyExistException(id);
         }
-        Person person = new Person(id, name, surname, age);
+        Person person = Person.builder(id).name(name).surname(surname).age(age).build();
         persons.add(person);
         return person;
     }
