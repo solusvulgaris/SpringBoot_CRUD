@@ -1,22 +1,19 @@
 package com.ak.data;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 
 @Data
+@Builder(builderMethodName = "personBuilder")
 public class Person {
-    private int id;
+    @NonNull
+    private final int id;
     private String name;
     private String surname;
     private Integer age;
 
-    public Person(int id, String name, String surname, Integer age) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-    }
-
-    public Person() {
-
+    public static PersonBuilder builder(int id) {
+        return personBuilder().id(id);
     }
 }

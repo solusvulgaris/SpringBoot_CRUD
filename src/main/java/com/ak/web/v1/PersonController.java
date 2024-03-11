@@ -83,7 +83,6 @@ public class PersonController {
             @PathVariable("id") int id,
             @RequestBody Person person) {
         if (id == person.getId()) {
-
             return personService.update(person.getId(), person.getName(), person.getSurname(), person.getAge())
                     .map(p -> ResponseEntity.accepted().build())
                     .orElseGet(() -> {
@@ -103,19 +102,19 @@ public class PersonController {
      * POST = can create new even if exists
      * URL -> http://localhost:8082/personapp/v1/persons/
      *
-     * @param id   - new person id
-     * @param name - new person name
-     * @param surname - new person sername
-     * @param age - new person age
+     * @param id      - new person id
+     * @param name    - new person name
+     * @param surname - new person surname
+     * @param age     - new person age
      * @return Person - created person
      */
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody Person create(
             @PathVariable("id") int id,
-            @RequestParam("name") String name,
-            @RequestParam("surname") String surname,
-            @RequestParam("age") Integer age) {
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "surname", required = false) String surname,
+            @RequestParam(value = "age", required = false) Integer age) {
         return personService.create(id, name, surname, age);
     }
 }
