@@ -35,4 +35,14 @@ public interface PersonCounterService {
      * @return return missing ids
      */
     List<Integer> getMissingPersonsIds(List<Person> persons);
+
+    /**
+     * Count persons namesakes with provided name
+     *
+     * @param name          - name for namesakes calculation
+     * @param persons       - persons list
+     * @return return count of namesakes
+     */
+    int countPersonsNamesakes(String name, List<Person> persons);
+
 }
