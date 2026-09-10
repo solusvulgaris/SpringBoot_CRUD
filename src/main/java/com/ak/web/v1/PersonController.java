@@ -1,6 +1,6 @@
 package com.ak.web.v1;
 
-import com.ak.data.Person;
+import com.ak.dto.Person;
 import com.ak.service.PersonService;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping(path = "/personapp/v1/persons", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,7 +40,8 @@ public class PersonController {
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody List<Person> getAll() {
-        return new ArrayList<>(personService.getAll());
+        // return new ArrayList<>(personService.getAll()); - TODO: почему была обертка?
+        return personService.getAll();
     }
 
     /**
@@ -52,7 +52,7 @@ public class PersonController {
      * @return requested person
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Person> get(@PathVariable("id") int id) {
+    public ResponseEntity<Person> get(@PathVariable("id") long id) {
         return ResponseEntity.of(personService.get(id));
     }
 
@@ -64,7 +64,7 @@ public class PersonController {
      * @return text message about successful deletion
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable("id") int id) {
+    public ResponseEntity<String> delete(@PathVariable("id") long id) {
         personService.delete(id);
         return ResponseEntity.noContent().build();
     }
@@ -80,18 +80,18 @@ public class PersonController {
      */
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createOrReplace(
-            @PathVariable("id") int id,
+            @PathVariable("id") long id,
             @RequestBody Person person) {
-        if (id == person.getId()) {
-            return personService.update(person.getId(), person.getName(), person.getSurname(), person.getAge())
+        if (person.getId() != null && id == person.getId()) {
+            return personService.update(person)
                     .map(p -> ResponseEntity.accepted().build())
                     .orElseGet(() -> {
-                        personService.create(person.getId(), person.getName(), person.getSurname(), person.getAge());
-                        URI personURI = ServletUriComponentsBuilder.fromCurrentRequest()
+                        personService.create(person);
+                        URI personUri = ServletUriComponentsBuilder.fromCurrentRequest()
                                 .path("/{id}")
                                 .buildAndExpand(person.getId())
                                 .toUri();
-                        return ResponseEntity.created(personURI).build();
+                        return ResponseEntity.created(personUri).build();
                     });
         }
         return ResponseEntity.badRequest().build();
@@ -108,13 +108,18 @@ public class PersonController {
      * @param age     - new person age
      * @return Person - created person
      */
-    @PostMapping("/{id}")
+    @PostMapping("/{id}")//TODO: delete id -> generate by service!
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody Person create(
-            @PathVariable("id") int id,
+            @PathVariable("id") long id,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "surname", required = false) String surname,
             @RequestParam(value = "age", required = false) Integer age) {
-        return personService.create(id, name, surname, age);
+        return personService.create(Person.builder()
+                .id(id)
+                .name(name)
+                .surname(surname)
+                .age(age)
+                .build());
     }
 }
