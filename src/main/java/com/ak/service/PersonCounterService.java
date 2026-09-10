@@ -1,6 +1,6 @@
 package com.ak.service;
 
-import com.ak.data.Person;
+import com.ak.dto.Person;
 
 import java.util.List;
 

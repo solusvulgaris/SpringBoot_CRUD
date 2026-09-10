@@ -1,6 +1,6 @@
 package com.ak.service;
 
-import com.ak.data.Person;
+import com.ak.dto.Person;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -49,6 +49,7 @@ public class PersonCounterServiceImpl implements PersonCounterService {
             .map(p -> p.stream()
                 .filter(Objects::nonNull)
                 .map(Person::getId)
+                .map(Long::intValue)
                 .sorted().toList())
             .orElse(new ArrayList<>());
 

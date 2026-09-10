@@ -1,6 +1,6 @@
 package com.ak.web.v1;
 
-import com.ak.data.Person;
+import com.ak.dto.Person;
 import com.ak.service.PersonCounterService;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;

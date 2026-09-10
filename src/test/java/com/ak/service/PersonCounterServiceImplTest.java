@@ -1,6 +1,6 @@
 package com.ak.service;
 
-import com.ak.data.Person;
+import com.ak.dto.Person;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,14 +52,14 @@ class PersonCounterServiceImplTest {
             Arguments.of('a', 0, Collections.EMPTY_LIST),
             Arguments.of('a', 0, createListWithNullElements()),
             Arguments.of('a', 2, new ArrayList<>(List.of(
-                Person.builder(0).build(),
-                Person.builder(0).surname("A").build(),
-                Person.builder(0).surname("a").build()
+                Person.builder().id(0L).build(),
+                Person.builder().id(0L).surname("A").build(),
+                Person.builder().id(0L).surname("a").build()
             ))),
             Arguments.of('A', 2, new ArrayList<>(List.of(
-                Person.builder(0).build(),
-                Person.builder(0).surname("A").build(),
-                Person.builder(0).surname("a").build()
+                Person.builder().id(0L).build(),
+                Person.builder().id(0L).surname("A").build(),
+                Person.builder().id(0L).surname("a").build()
             )))
         );
     }
@@ -78,23 +78,23 @@ class PersonCounterServiceImplTest {
             Arguments.of(0d, Collections.EMPTY_LIST),
             Arguments.of(0d, createListWithNullElements()),
             Arguments.of(19.0d, new ArrayList<>(List.of(
-                Person.builder(0).age(0).build(),
-                Person.builder(0).age(30).build(),
-                Person.builder(0).age(27).build()
+                Person.builder().id(0L).age(0).build(),
+                Person.builder().id(0L).age(30).build(),
+                Person.builder().id(0L).age(27).build()
             ))),
             Arguments.of(28.5d, new ArrayList<>(List.of(
-                Person.builder(0).build(),
-                Person.builder(0).age(30).build(),
-                Person.builder(0).age(27).build()
+                Person.builder().id(0L).build(),
+                Person.builder().id(0L).age(30).build(),
+                Person.builder().id(0L).age(27).build()
             ))),
             Arguments.of(28.5d, new ArrayList<>(List.of(
-                Person.builder(0).age(30).build(),
-                Person.builder(0).age(27).build()
+                Person.builder().id(0L).age(30).build(),
+                Person.builder().id(0L).age(27).build()
             ))),
             Arguments.of(37.67d, new ArrayList<>(List.of(
-                Person.builder(0).age(13).build(),
-                Person.builder(0).age(50).build(),
-                Person.builder(0).age(50).build()
+                Person.builder().id(0L).age(13).build(),
+                Person.builder().id(0L).age(50).build(),
+                Person.builder().id(0L).age(50).build()
             )))
         );
     }
@@ -115,32 +115,32 @@ class PersonCounterServiceImplTest {
             Arguments.of(
                 new ArrayList<>(),
                 new ArrayList<>(List.of(
-                    Person.builder(0).build()
+                    Person.builder().id(0L).build()
                 ))),
             Arguments.of(
                 new ArrayList<>(),
                 new ArrayList<>(List.of(
-                    Person.builder(0).build(),
-                    Person.builder(1).build()
+                    Person.builder().id(0L).build(),
+                    Person.builder().id(1L).build()
                 ))),
             Arguments.of(
                 new ArrayList<>(Collections.singleton(1)),
                 new ArrayList<>(List.of(
-                    Person.builder(0).build(),
-                    Person.builder(2).build()
+                    Person.builder().id(0L).build(),
+                    Person.builder().id(2L).build()
                 ))),
             Arguments.of(
                 new ArrayList<>(List.of(1, 2, 3, 4)),
                 new ArrayList<>(List.of(
-                    Person.builder(0).age(30).build(),
-                    Person.builder(5).age(27).build()
+                    Person.builder().id(0L).age(30).build(),
+                    Person.builder().id(5L).age(27).build()
                 ))),
             Arguments.of(
                 new ArrayList<>(List.of(1, 2, 3, 5)),
                 new ArrayList<>(List.of(
-                    Person.builder(0).age(30).build(),
-                    Person.builder(4).age(27).build(),
-                    Person.builder(6).age(27).build()
+                    Person.builder().id(0L).age(30).build(),
+                    Person.builder().id(4L).age(27).build(),
+                    Person.builder().id(6L).age(27).build()
                 )))
         );
     }
@@ -165,28 +165,28 @@ class PersonCounterServiceImplTest {
             Arguments.of(
                 "name", 0,
                 new ArrayList<>(List.of(
-                    Person.builder(0).build()
+                    Person.builder().id(0L).build()
                 ))),
             Arguments.of(
                 "name", 0,
                 new ArrayList<>(List.of(
-                    Person.builder(0).name("null").build(),
-                    Person.builder(1).build()
+                    Person.builder().id(0L).name("null").build(),
+                    Person.builder().id(1L).build()
                 ))),
             Arguments.of(
                 "name", 1,
                 new ArrayList<>(List.of(
-                    Person.builder(0).name("null").build(),
-                    Person.builder(0).name("name").build(),
-                    Person.builder(2).build()
+                    Person.builder().id(0L).name("null").build(),
+                    Person.builder().id(0L).name("name").build(),
+                    Person.builder().id(2L).build()
                 ))),
             Arguments.of(
                 "name", 2,
                 new ArrayList<>(List.of(
-                    Person.builder(0).name("null").build(),
-                    Person.builder(5).name("name").build(),
-                    Person.builder(0).name("name").build(),
-                    Person.builder(2).build()
+                    Person.builder().id(0L).name("null").build(),
+                    Person.builder().id(5L).name("name").build(),
+                    Person.builder().id(0L).name("name").build(),
+                    Person.builder().id(2L).build()
                 )))
         );
     }

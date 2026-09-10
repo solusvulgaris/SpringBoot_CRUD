@@ -1,6 +1,6 @@
 package com.ak.web.v1;
 
-import com.ak.data.Person;
+import com.ak.dto.Person;
 import com.ak.service.PersonService;
 import com.ak.util.ResourceAlreadyExistException;
 import com.ak.util.ResourceNotDeletedException;
@@ -45,7 +45,12 @@ class PersonControllerTest {
     @MockBean
     private PersonService personService;
 
-    private static final Person testPerson = Person.builder(10).name("Name").surname("Surname").age(33).build();
+    private static final Person testPerson =
+            Person.builder().id(10L)
+                    .name("Name")
+                    .surname("Surname")
+                    .age(33)
+                    .build();
     private static String personAsJsonString;
 
     private static String getObjectAsJsonString(Object object) throws JsonProcessingException {
@@ -165,7 +170,7 @@ class PersonControllerTest {
 
     @Test
     void Given_ExistsReceivesFullData_When_CreateOrReplace_Then_IsAccepted() throws Exception {
-        when(personService.update(testPerson.getId(), testPerson.getName(), testPerson.getSurname(), testPerson.getAge()))
+        when(personService.update(testPerson))
                 .thenReturn(Optional.of(testPerson));
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -179,9 +184,9 @@ class PersonControllerTest {
 
     public static Stream<Arguments> sourceCreateOrReplacePartialIsAccepted() {
         return Stream.of(
-                Arguments.of(Person.builder(0).build()),
-                Arguments.of(Person.builder(0).name("name").build()),
-                Arguments.of(Person.builder(0).name("name").surname("surname").build()),
+                Arguments.of(Person.builder().id(0L).build()),
+                Arguments.of(Person.builder().id(0L).name("name").build()),
+                Arguments.of(Person.builder().id(0L).name("name").surname("surname").build()),
                 Arguments.of(testPerson)
         );
     }
@@ -189,7 +194,7 @@ class PersonControllerTest {
     @ParameterizedTest
     @MethodSource("sourceCreateOrReplacePartialIsAccepted")
     void Given_ExistsReceivesPartialData_When_CreateOrReplace_Then_IsAccepted(Person person) throws Exception {
-        when(personService.update(person.getId(), person.getName(), person.getSurname(), person.getAge()))
+        when(personService.update(person))
                 .thenReturn(Optional.of(person));
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -203,9 +208,9 @@ class PersonControllerTest {
 
     public static Stream<Arguments> sourceCreateIsCreated() {
         return Stream.of(
-                Arguments.of(Person.builder(0).build()),
-                Arguments.of(Person.builder(0).name("name").build()),
-                Arguments.of(Person.builder(0).name("name").surname("surname").build()),
+                Arguments.of(Person.builder().id(0L).build()),
+                Arguments.of(Person.builder().id(0L).name("name").build()),
+                Arguments.of(Person.builder().id(0L).name("name").surname("surname").build()),
                 Arguments.of(testPerson)
         );
     }
@@ -213,7 +218,7 @@ class PersonControllerTest {
     @ParameterizedTest
     @MethodSource("sourceCreateIsCreated")
     void Given_NotExistsReceivesVariousData_When_Create_Then_IsCreated(Person person) throws Exception {
-        when(personService.create(person.getId(), person.getName(), person.getSurname(), person.getAge()))
+        when(personService.create(person))
                 .thenReturn(person);
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -233,7 +238,7 @@ class PersonControllerTest {
     @Test
     void Given_Exists_When_Create_Then_IsConflict() throws Exception {
         Mockito.doThrow(new ResourceAlreadyExistException(1))
-                .when(personService).create(0, null, null, null);
+                .when(personService).create(Person.builder().id(0L).build());
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post(URL_TEMPLATE, 0)

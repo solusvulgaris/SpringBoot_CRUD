@@ -1,19 +1,19 @@
 package com.ak.service;
 
-import com.ak.data.Person;
+import com.ak.dto.Person;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface PersonService {
 
-    Person create(int id, String name, String surname, Integer age);
+    Person create(Person person);
 
-    void delete(int id);
+    void delete(long id);
 
-    Optional<Person> get(int id);
+    Optional<Person> get(long id);
 
     List<Person> getAll();
 
-    Optional<Person> update(int id, String name, String surname, Integer age);
+    Optional<Person> update(Person person);
 }
